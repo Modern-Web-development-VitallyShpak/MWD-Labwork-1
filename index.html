@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1>Список задач</h1>
+    </header>
+    <main class="main">
+        <section class="section-new-task">
+            <h2>Новая задача</h2>
+            <div class="task-input">
+                <input type="text" placeholder="Название задачи..." />
+                <button class="button-add">+ Добавить</button>
+            </div>
+        </section>
+        <section class="section-tasks">
+            <div class="column-tasks column-backlog">
+                <div class="column-label label-backlog">
+                    <h3>Бэклог</h3>
+                </div>
+                <div class="tasks-list column-backlog">
+                    <div class="task task-backlog">Выучить JS</div>
+                    <div class="task task-backlog">Выучить React</div>
+                    <div class="task task-backlog">Сделать домашку</div>
+                </div>
+            </div>
+            <div class="column-tasks column-in-progress">
+                <div class="column-label label-in-progress">
+                    <h3>В процессе</h3>
+                </div>
+                <div class="tasks-list column-in-progress">
+                    <div class="task task-in-progress">Выпить смузи</div>
+                    <div class="task task-in-progress">Попить воды</div>
+                </div>
+            </div>
+            <div class="column-tasks column-done">
+                <div class="column-label label-done">
+                    <h3>Готово</h3>
+                </div>
+                <div class="tasks-list column-done">
+                    <div class="task task-done">Позвонить маме</div>
+                    <div class="task task-done">Погладить кота</div>
+                </div>
+            </div>
+            <div class="column-tasks column-trash">
+                <div class="column-label label-trash">
+                    <h3>Корзина</h3>
+                </div>
+                <div class="tasks-list column-trash">
+                    <div class="task task-trash">Сходить погулять</div>
+                    <div class="task task-trash">Прочитать Войну и Мир</div>
+                </div>
+                <button class="button-clear">× Очистить</button>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

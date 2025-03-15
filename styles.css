@@ -1,0 +1,175 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #eaf6ff;
+    color: #333;
+}
+
+.header {
+    background-color: #007bff;
+    color: white;
+    margin-top: -24px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 40px;
+    text-align: left;
+}
+
+.main {
+    padding: 20px;
+}
+
+
+/* Стиль для добавления задачи */
+
+.section-new-task {
+    display: inline-block;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    min-width: 352px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.section-new-task h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.task-input {
+    display: inline-block;
+    min-width: 312px;
+    gap: 10px;
+    width: 100%;
+}
+
+.task-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.button-add {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.button-add:hover {
+    background-color: #0056b3;
+}
+
+
+/* Стиль для области с задачами */
+
+.section-tasks {
+    display: flex;
+    max-width: 2200px;
+    min-width: 1000px;
+    gap: 20px;
+}
+
+.column-tasks {
+    flex: 1;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.column-tasks h3 {
+    margin: 0 0 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+.column-label {
+    display: inline-block;
+}
+
+.column-label h3 {
+    text-align: left;
+}
+
+.label-backlog h3 {
+    background-color: #d6d6d6;
+    color: #333;
+}
+
+.label-in-progress h3 {
+    background-color: #d6eaff;
+    color: #007bff;
+}
+
+.label-done h3 {
+    background-color: #d4f8d4;
+    color: #28a745;
+}
+
+.label-trash h3 {
+    background-color: #f8d7da;
+    color: #dc3545;
+}
+
+
+/* Стиль для задачи */
+
+.task {
+    background-color: white;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    border-left: 5px solid;
+}
+
+.task-backlog {
+    border-left-color: #6c757d;
+}
+
+.task-in-progress {
+    border-left-color: #007bff;
+}
+
+.task-done {
+    border-left-color: #28a745;
+}
+
+.task-trash {
+    border-left-color: #dc3545;
+}
+
+
+/* Стиль для кнопки Очистить */
+
+.button-clear {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.button-clear:hover {
+    background-color: #a71d2a;
+}
