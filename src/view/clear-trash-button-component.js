@@ -1,4 +1,6 @@
-export default class ClearTrashButtonComponent {
+import { AbstractComponent } from '../framework/view/abstract-component.js';
+
+export default class ClearTrashButtonComponent extends AbstractComponent {
     element = null;
     handleClick = null;
 
@@ -7,15 +9,24 @@ export default class ClearTrashButtonComponent {
         this.element = this.createElement();
     }
 
-    createElement() {
-        const element = document.createElement('button');
-        element.className = 'clear-trash-button';
-        element.textContent = 'Clear Trash';
-        element.addEventListener('click', this.handleClick);
-        return element;
+    get template() {
+        return '<button class="clear-trash-button">Clear Trash</button>';
     }
 
-    getElement() {
+    get element() {
+        return super.element;
+    }
+
+    onClick = (evt) => {
+        evt.preventDefault();
+        this.handleClick();
+    };
+
+    get element() {
+        if (!this._element) {
+            this._element = super.element;
+            this._element.addEventListener('click', this.onClick);
+        }
         return this.element;
     }
 }

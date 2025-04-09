@@ -156,6 +156,17 @@ body {
     border-left-color: #dc3545;
 }
 
+.empty-state {
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+
 
 /* Стиль для кнопки Очистить */
 

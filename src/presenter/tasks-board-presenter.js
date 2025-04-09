@@ -1,6 +1,9 @@
 import BoardTaskComponent from '../view/boardtask-component.js';
 import TaskListComponent from '../view/task-list-component.js';
+import TaskComponent from '../view/task-component.js';
+import EmptyStateComponent from '../view/empty-state-component.js';
 import { render } from '../framework/render.js';
+import { StatusToColumnMap } from '../const.js';
 
 export default class TasksBoardPresenter {
     boardContainer = null;
@@ -15,37 +18,70 @@ export default class TasksBoardPresenter {
 
     init() {
         this.renderBoard();
-        this.renderTaskLists();
-        this.renderTasks();
     }
 
     renderBoard() {
         this.boardComponent = new BoardTaskComponent();
         render(this.boardComponent, this.boardContainer);
-    }
 
-    renderTaskLists() {
-        const taskboardElement = this.boardComponent.getElement();
-
-        this.taskLists.backlog = new TaskListComponent();
-        this.taskLists['in-progress'] = new TaskListComponent();
-        this.taskLists.done = new TaskListComponent();
-        this.taskLists.trash = new TaskListComponent();
-
-        taskboardElement.querySelector('.column-backlog .tasks-list').append(this.taskLists.backlog.getElement());
-        taskboardElement.querySelector('.column-in-progress .tasks-list').append(this.taskLists['in-progress'].getElement());
-        taskboardElement.querySelector('.column-done .tasks-list').append(this.taskLists.done.getElement());
-        taskboardElement.querySelector('.column-trash .tasks-list').append(this.taskLists.trash.getElement());
-    }
-
-    renderTasks() {
-        const statuses = ['backlog', 'in-progress', 'done', 'trash'];
-
-        statuses.forEach(status => {
-            const tasks = this.taskModel.getTasksByStatus(status);
-            tasks.forEach(task => {
-                this.taskLists[status].addTask(task.title, task.status, task.id);
-            });
+        Object.keys(StatusToColumnMap).forEach(status => {
+            if (status !== StatusToColumnMap.trash) {
+                this.renderTasksList(status);
+            }
         });
+
+        this.renderTrashList();
+    }
+
+    renderTasksList(status) {
+        const listContainer = this.boardComponent.element.querySelector(`.column-${status} .tasks-list`);
+        if (!listContainer) return;
+
+        const tasksListComponent = new TaskListComponent();
+        render(tasksListComponent, listContainer);
+        this.taskLists[status] = tasksListComponent;
+
+        const tasks = this.taskModel.getTasksByStatus(status);
+
+        if (tasks.length > 0) {
+            tasks.forEach(task => {
+                this.renderTask(task, tasksListComponent.element, status);
+            });
+        } else {
+            //Контайнет для заглушки поправлю, но позже
+            this.renderEmptyState(listContainer, status);
+        }
+    }
+
+    renderTrashList() {
+        const trashStatus = StatusToColumnMap.trash;
+        const listContainer = this.boardComponent.element.querySelector(`.column-${trashStatus} .tasks-list`);
+        if (!listContainer) return;
+
+        const trashListComponent = new TaskListComponent();
+        render(trashListComponent, listContainer);
+        this.taskLists[trashStatus] = trashListComponent;
+
+        const trashTasks = this.taskModel.getTasksByStatus(trashStatus);
+        if (trashTasks.length > 0) {
+            trashTasks.forEach(task => {
+                this.renderTask(task, trashListComponent.element, trashStatus);
+            });
+        } else {
+            this.renderEmptyState(listContainer, trashStatus, true);
+        }
+    }
+
+    renderTask(task, container, status) {
+        const taskComponent = new TaskComponent(task.title, status);
+        render(taskComponent, container);
+    }
+
+    renderEmptyState(container, status, isTrash = false) {
+        const emptyStateComponent = new EmptyStateComponent({
+            status: status,
+            isTrash: isTrash
+        });
+        render(emptyStateComponent, container);
     }
 }
