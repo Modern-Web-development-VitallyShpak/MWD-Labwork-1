@@ -14,10 +14,28 @@ export default class TasksBoardPresenter {
     constructor(boardContainer, taskModel) {
         this.boardContainer = boardContainer;
         this.taskModel = taskModel;
+        this.taskModel.addObserver(this.handleModelChange.bind(this));
     }
 
     init() {
         this.renderBoard();
+    }
+
+    handleModelChange() {
+        this.renderTrashList();
+    }
+
+    renderBoard() {
+        this.boardComponent = new BoardTaskComponent();
+        render(this.boardComponent, this.boardContainer);
+
+        Object.keys(StatusToColumnMap).forEach(status => {
+            if (status !== StatusToColumnMap.trash) {
+                this.renderTasksList(status);
+            }
+        });
+
+        this.renderTrashList();
     }
 
     renderBoard() {
@@ -55,13 +73,16 @@ export default class TasksBoardPresenter {
 
     renderTrashList() {
         const trashStatus = StatusToColumnMap.trash;
-        const listContainer = this.boardComponent.element.querySelector(`.column-${trashStatus} .tasks-list`);
-        if (!listContainer) return;
+        const columnContainer = this.boardComponent.element.querySelector(`.column-${trashStatus} .tasks-list`);
+        if (!columnContainer) return;
 
+        const listContainer = columnContainer.querySelector('.tasks-list');
+        const clearButton = columnContainer.querySelector('.button-clear');
+        listContainer.innerHTML = '';
         const trashListComponent = new TaskListComponent();
         render(trashListComponent, listContainer);
         this.taskLists[trashStatus] = trashListComponent;
-
+        clearButton.disabled = trashTasks.length === 0;
         const trashTasks = this.taskModel.getTasksByStatus(trashStatus);
         if (trashTasks.length > 0) {
             trashTasks.forEach(task => {

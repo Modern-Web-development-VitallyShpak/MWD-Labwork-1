@@ -42,6 +42,23 @@ body {
     font-weight: bold;
 }
 
+.task-input-form {
+    display: inline-block;
+    min-width: 312px;
+    gap: 10px;
+    width: 100%;
+}
+
+.task-input-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: calc(100% - 130px);
+    margin-right: 10px;
+}
+
 .task-input {
     display: inline-block;
     min-width: 312px;
