@@ -21,19 +21,12 @@ tasksBoardPresenter.init();
 
 
 
-formComponent.setSubmitHandler((evt) => {
-    evt.preventDefault();
-    const input = evt.target.querySelector('input');
-    const taskTitle = input.value.trim();
-
-    if (taskTitle) {
-        taskModel.addTask({
-            id: generateID(),
-            title: taskTitle,
-            status: 'backlog'
-        });
-        input.value = '';
-    }
+formComponent.setSubmitHandler((taskTitle) => {
+    taskModel.addTask({ 
+        id: generateID(),   
+        title: taskTitle,     
+        status: 'backlog'      
+    });
 });
 
 const clearTrashButton = boardAppInnerContainer.querySelector('.button-clear');

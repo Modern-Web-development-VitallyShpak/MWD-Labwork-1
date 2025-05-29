@@ -1,8 +1,5 @@
 import { createElement } from "../render.js";
 
-
-
-
 export class AbstractComponent {
     _element = null;
     constructor() {

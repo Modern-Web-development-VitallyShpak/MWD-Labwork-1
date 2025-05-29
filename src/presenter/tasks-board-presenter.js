@@ -22,33 +22,20 @@ export default class TasksBoardPresenter {
     }
 
     handleModelChange() {
-        this.renderTrashList();
+        this.renderBoard()
     }
 
     renderBoard() {
+        if (this.boardContainer.querySelector('.section-tasks')) {
+            this.boardContainer.querySelector('.section-tasks').remove();
+        }
+        
         this.boardComponent = new BoardTaskComponent();
         render(this.boardComponent, this.boardContainer);
 
         Object.keys(StatusToColumnMap).forEach(status => {
-            if (status !== StatusToColumnMap.trash) {
-                this.renderTasksList(status);
-            }
+            this.renderTasksList(status);
         });
-
-        this.renderTrashList();
-    }
-
-    renderBoard() {
-        this.boardComponent = new BoardTaskComponent();
-        render(this.boardComponent, this.boardContainer);
-
-        Object.keys(StatusToColumnMap).forEach(status => {
-            if (status !== StatusToColumnMap.trash) {
-                this.renderTasksList(status);
-            }
-        });
-
-        this.renderTrashList();
     }
 
     renderTasksList(status) {
@@ -66,7 +53,6 @@ export default class TasksBoardPresenter {
                 this.renderTask(task, tasksListComponent.element, status);
             });
         } else {
-            //Контайнет для заглушки поправлю, но позже
             this.renderEmptyState(listContainer, status);
         }
     }

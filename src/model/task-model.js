@@ -1,15 +1,15 @@
 import { StatusToColumnMap } from '../const.js';
 
 export default class TaskModel {
-    tasks = [];
+    #tasks = []; // Используем приватное поле для хранения внутренних данных
     observers = [];
 
     get tasks() {
-        return this.tasks;
+        return [...this.#tasks]; // Возвращаем копию массива задач
     }
 
     constructor(tasks) {
-        this.tasks = tasks;
+        this.#tasks = tasks || [];
     }
 
     getTasksByStatus(status) {
@@ -17,12 +17,14 @@ export default class TaskModel {
     }
 
     addTask(task) {
-        this.tasks.push(task);
+        this.#tasks.push(task);
+        console.log(`Задача "${task.title}" успешно добавлена.`); 
         this.notify();
     }
 
     clearTrash() {
-        this.tasks = this.tasks.filter(task => task.status !== StatusToColumnMap.trash);
+        this.#tasks = this.#tasks.filter(task => task.status !== StatusToColumnMap.trash);
+        console.log(this.#tasks)
         this.notify();
     }
 
@@ -31,6 +33,6 @@ export default class TaskModel {
     }
 
     notify() {
-        this.observers.forEach(observer => observer(this.tasks));
+        this.observers.forEach(observer => observer(this.tasks)); // Отправляем свежую копию задач
     }
 }

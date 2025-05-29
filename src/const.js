@@ -1,6 +1,6 @@
 export const StatusToColumnMap = {
-    backlog: 'Backlog',
+    backlog: 'backlog',
     'in-progress': 'In Progress',
-    done: 'Done',
-    trash: 'Trash',
+    done: 'tone',
+    trash: 'trash',
 };
