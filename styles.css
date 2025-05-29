@@ -201,3 +201,12 @@ body {
 .button-clear:hover {
     background-color: #a71d2a;
 }
+
+.dragging {
+    opacity: 0.5;
+}
+
+.drag-over {
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s;
+}

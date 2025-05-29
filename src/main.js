@@ -19,19 +19,10 @@ const taskModel = new TaskModel(tasks);
 const tasksBoardPresenter = new TasksBoardPresenter(boardAppInnerContainer, taskModel);
 tasksBoardPresenter.init();
 
-
-
 formComponent.setSubmitHandler((taskTitle) => {
     taskModel.addTask({ 
         id: generateID(),   
         title: taskTitle,     
         status: 'backlog'      
     });
-});
-
-const clearTrashButton = boardAppInnerContainer.querySelector('.button-clear');
-clearTrashButton.disabled = taskModel.getTasksByStatus('trash').length === 0;
-
-clearTrashButton.addEventListener('click', () => {
-    taskModel.clearTrash();
 });

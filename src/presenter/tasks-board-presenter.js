@@ -23,6 +23,10 @@ export default class TasksBoardPresenter {
 
     handleModelChange() {
         this.renderBoard()
+        const clearButton = this.boardContainer.querySelector('.button-clear');
+        if (clearButton) {
+            clearButton.disabled = this.taskModel.getTasksByStatus('trash').length === 0;
+        }
     }
 
     renderBoard() {
@@ -33,9 +37,18 @@ export default class TasksBoardPresenter {
         this.boardComponent = new BoardTaskComponent();
         render(this.boardComponent, this.boardContainer);
 
+        const clearButton = this.boardComponent.element.querySelector('.button-clear');
+        if (clearButton) {
+            clearButton.addEventListener('click', () => {
+                this.taskModel.clearTrash();
+            });
+        }
+
         Object.keys(StatusToColumnMap).forEach(status => {
             this.renderTasksList(status);
         });
+
+        this.updateClearButtonState();
     }
 
     renderTasksList(status) {
@@ -45,6 +58,10 @@ export default class TasksBoardPresenter {
         const tasksListComponent = new TaskListComponent();
         render(tasksListComponent, listContainer);
         this.taskLists[status] = tasksListComponent;
+
+        tasksListComponent.setOnDropCallback((taskId, newStatus) => {
+            this.taskModel.updateTaskStatus(taskId, newStatus);
+        });
 
         const tasks = this.taskModel.getTasksByStatus(status);
 
@@ -80,7 +97,7 @@ export default class TasksBoardPresenter {
     }
 
     renderTask(task, container, status) {
-        const taskComponent = new TaskComponent(task.title, status);
+        const taskComponent = new TaskComponent(task.title, status, task.id);
         render(taskComponent, container);
     }
 
@@ -90,5 +107,12 @@ export default class TasksBoardPresenter {
             isTrash: isTrash
         });
         render(emptyStateComponent, container);
+    }
+
+    updateClearButtonState() {
+        const clearButton = this.boardComponent.element.querySelector('.button-clear');
+        if (clearButton) {
+            clearButton.disabled = this.taskModel.getTasksByStatus('trash').length === 0;
+        }
     }
 }

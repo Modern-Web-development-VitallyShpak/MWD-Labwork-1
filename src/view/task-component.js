@@ -5,17 +5,22 @@ function createTaskComponentTemplate(taskName, status) {
 }
 
 export default class TaskComponent extends AbstractComponent {
-    constructor(taskName, status) {
+    constructor(taskName, status, id) {
         super();
         this.taskName = taskName;
         this.status = status
+        this.id = id
     }
 
     get template() {
-        return createTaskComponentTemplate(this.taskName, this.status);
+        return createTaskComponentTemplate(this.taskName, this.status, this.id);
     }
 
     get element() {
-        return super.element;
+        if (!this._element) {
+            this._element = super.element;
+        }
+        return this._element;
     }
+
 }

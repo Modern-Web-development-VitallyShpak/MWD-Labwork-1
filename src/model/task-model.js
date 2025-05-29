@@ -22,8 +22,19 @@ export default class TaskModel {
         this.notify();
     }
 
+    updateTaskStatus(taskId, newStatus) {
+        const task = this.#tasks.find(t => t.id === taskId);
+        if (task) {
+            task.status = newStatus;
+            this.notify();
+            return true;
+        }
+        return false;
+    }
+
     clearTrash() {
         this.#tasks = this.#tasks.filter(task => task.status !== StatusToColumnMap.trash);
+        console.log("Модель очищена")
         console.log(this.#tasks)
         this.notify();
     }

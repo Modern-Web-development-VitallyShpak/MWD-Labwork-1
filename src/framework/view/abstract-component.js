@@ -8,7 +8,6 @@ export class AbstractComponent {
         }
     }
 
-
     get element() {
         if (!this._element) {
             this._element = createElement(this.template);
