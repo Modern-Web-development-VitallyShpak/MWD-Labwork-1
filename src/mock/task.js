@@ -44,8 +44,8 @@ export const tasks = [{
         status: 'done'
     },
     {
-        id: '9',
-        title: 'Приготовить ужин',
+        id: '10',
+        title: 'Приготовить обед',
         status: 'trash'
     },
 

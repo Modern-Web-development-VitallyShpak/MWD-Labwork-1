@@ -1,15 +1,15 @@
 import { StatusToColumnMap } from '../const.js';
 
 export default class TaskModel {
-    #tasks = []; // Используем приватное поле для хранения внутренних данных
+    #tasks = []; 
     observers = [];
 
     get tasks() {
-        return [...this.#tasks]; // Возвращаем копию массива задач
+        return [...this.#tasks];
     }
 
     constructor(tasks) {
-        this.#tasks = tasks || [];
+        this.#tasks = tasks;
     }
 
     getTasksByStatus(status) {
@@ -22,9 +22,25 @@ export default class TaskModel {
         this.notify();
     }
 
+    updateTaskStatus(taskId, newStatus) {
+        const task = this.#tasks.find(task => task.id === taskId);
+        if(task) {
+            task.status = newStatus;
+            this.notify();
+        }
+    }
+
+    updateTasks(updatedTasks) {
+        const otherTasks = this.#tasks.filter(t => 
+            !updatedTasks.some(ut => ut.id === t.id)
+        );
+        
+        this.#tasks = [...otherTasks, ...updatedTasks];
+        this.notify();
+    }
+
     clearTrash() {
         this.#tasks = this.#tasks.filter(task => task.status !== StatusToColumnMap.trash);
-        console.log(this.#tasks)
         this.notify();
     }
 
