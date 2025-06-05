@@ -203,3 +203,14 @@ body {
     background-color: #a71d2a;
 }
 
+.board__no-tasks {
+    background-color: rgb(0, 0, 0);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border: 1px solid #000000;
+    display: flex;
+    align-items: center;
+    border-left: 5px solid;   
+}
