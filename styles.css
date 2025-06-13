@@ -203,6 +203,14 @@ body {
     background-color: #a71d2a;
 }
 
+.button-clear:disabled,
+.button-clear.button--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #ccc;
+    color: #666;
+}
+
 .board__no-tasks {
     background-color: rgb(0, 0, 0);
     padding: 10px;
